@@ -1,15 +1,14 @@
 import * as Phaser from "phaser";
 import { gameSettings } from "../gameSettings";
 
-export default class Pufferfish extends Phaser.GameObjects.Sprite {
+export default class YOURCLASSNAMEHERE extends Phaser.GameObjects.Ellipse {
 	public speedX: number;
 	public speedY: number;
 
 	constructor(scene: Phaser.Scene) {
 		let posY = Phaser.Math.Between(10, gameSettings.width - 10);
 
-		let spriteName = "pufferfish";
-		super(scene, posY, 0, spriteName, 0);
+		super(scene, posY, 0, 24, 24, 0xccddee, 0.5);
 
 		this.x = gameSettings.playerStartX;
 		this.y = gameSettings.playerStartY;
@@ -17,6 +16,7 @@ export default class Pufferfish extends Phaser.GameObjects.Sprite {
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
+		this.setStrokeStyle(3, 0x000000);
 	}
 
 	public reset = () => {
@@ -24,6 +24,6 @@ export default class Pufferfish extends Phaser.GameObjects.Sprite {
 	};
 
 	public update = () => {
-		// TODO: animate and move the fish...
+		//
 	};
 }

@@ -1,3 +1,4 @@
+import * as Phaser from "phaser";
 import { gameSettings } from "./gameSettings";
 import Preloader from "./scenes/Preloader";
 import AttractMode from "./scenes/AttractMode";
@@ -7,7 +8,7 @@ import Scene03 from "./scenes/Scene03";
 
 export const config: Phaser.Types.Core.GameConfig = {
 	scene: [Preloader, AttractMode, Scene01, Scene02, Scene03],
-	title: "phaser typescript base game",
+	title: "Pufferfish",
 	type: Phaser.AUTO,
 	scale: {
 		width: gameSettings.width,
@@ -22,5 +23,5 @@ export const config: Phaser.Types.Core.GameConfig = {
 		},
 	},
 	parent: "game",
-	backgroundColor: "#000000",
+	backgroundColor: "#3faad1",
 };

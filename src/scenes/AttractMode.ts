@@ -1,6 +1,8 @@
 import * as Phaser from "phaser";
-import { gameSettings } from "../gameSettings";
 import WebFontFile from "../WebFontFile";
+
+import { gameSettings } from "../gameSettings";
+import backgroundSetup from "./backgroundSetup";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 	active: false,
@@ -10,7 +12,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export default class AttractMode extends Phaser.Scene {
 	private titleBlock: Phaser.GameObjects.Text;
-	private titleStyle = { fontFamily: '"Press Start 2P"', fontSize: "72px", color: "yellow", align: "center" };
+	private titleStyle = { fontFamily: `"${gameSettings.mainFontName}"`, fontSize: "72px", color: "yellow", align: "center" };
 
 	private introMusic;
 	private musicIsPlaying: boolean = false;
@@ -24,11 +26,12 @@ export default class AttractMode extends Phaser.Scene {
 	}
 
 	public preload() {
-		this.load.addFile(new WebFontFile(this.load, "Press Start 2P"));
+		this.load.addFile(new WebFontFile(this.load, `${gameSettings.mainFontName}`));
 		//this.load.audio("introMusic", ["assets/sounds/DEmo_3.ogg"]);
 	}
 
 	public create() {
+		backgroundSetup(this);
 		this.titleBlock = this.createTitle();
 
 		this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -36,18 +39,24 @@ export default class AttractMode extends Phaser.Scene {
 		this.sound.volume = 0.3;
 
 		this.input.on("pointerdown", (pointer) => {
-			this.playMusic();
+			this.startGame();
 		});
 
-		this.introMusic = this.sound.add("introMusic");
+		//	this.introMusic = this.sound.add("introMusic");
+
+		//this.startGame();
 	}
 
-	public update() {}
+	public update() {
+		if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+			this.startGame();
+		}
+	}
 
 	public destroy() {}
 
 	createTitle = () => {
-		let titleObj = this.add.text(this.midpointX, this.midpointY - 172, "Hi There!", this.titleStyle);
+		let titleObj = this.add.text(this.midpointX, this.midpointY - 172, "pufferfish", this.titleStyle);
 		titleObj.setOrigin(0, 0);
 		let titleMidpointX = titleObj.width / 2;
 		let titlePosX = this.midpointX - titleMidpointX;
@@ -62,4 +71,9 @@ export default class AttractMode extends Phaser.Scene {
 			this.musicIsPlaying = true;
 		}
 	};
+
+	startGame() {
+		this.sound.stopAll();
+		this.scene.start("Scene01");
+	}
 }

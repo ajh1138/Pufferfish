@@ -13,8 +13,12 @@ export default class Scene01 extends Phaser.Scene {
 
 	public preload() {}
 
-	public create() {}
-	public update() {}
+	public create() {
+		//
+	}
+	public update() {
+		//
+	}
 
 	public destroy() {}
 }

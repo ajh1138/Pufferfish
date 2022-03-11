@@ -1,6 +1,7 @@
 export const gameSettings = {
 	width: 1024,
 	height: 768,
+	mainFontName: "Fredoka One",
 	playerLives: 3,
 	playerSpeed: 500,
 	playerBulletSpeed: 350,
