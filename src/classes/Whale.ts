@@ -17,6 +17,7 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
+		this.flipX = true;
 		this.reset();
 	}
 

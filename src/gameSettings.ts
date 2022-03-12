@@ -9,8 +9,10 @@ export const gameSettings = {
 	playerStartY: 360,
 	playerMinY: 20,
 	playerMaxY: 680,
+	whaleBaseSpeed: 15,
+	enemyMinY: 30,
+	enemyMaxY: 650,
 	enemySpeedMin: 2,
 	enemySpeedMax: 5,
 	enemyPointValue: 50,
-	whaleBaseSpeed: 15
 };

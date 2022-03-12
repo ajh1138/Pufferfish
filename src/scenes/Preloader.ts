@@ -19,9 +19,9 @@ export default class Preloader extends Phaser.Scene {
 	public create() {
 		this.scene.start("AttractMode");
 	}
-	public update() {}
+	public update() { }
 
-	public destroy() {}
+	public destroy() { }
 
 	preloadSounds() {
 		// this.load.audio("mainMusic", ["assets/sound/NeonAction2.mp3"]);
@@ -35,6 +35,8 @@ export default class Preloader extends Phaser.Scene {
 		this.load.image("coral_02", "assets/sprites/coral_02.png");
 		this.load.image("pufferfish", "assets/sprites/pufferfish_temp.png");
 		this.load.image("whale", "assets/sprites/whale_temp.png");
+		this.load.image("harpoon", "assets/sprites/harpoon_01.png");
+		this.load.image("shark", "assets/sprites/shark_01.png");
 		// this.load.image("stars02", "assets/stars02.png");
 		// this.load.spritesheet("enemy01", "assets/sprites/enemy-01.png", {
 		// 	frameWidth: 48,

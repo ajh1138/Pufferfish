@@ -4,6 +4,9 @@ import { gameSettings } from "../gameSettings";
 import backgroundSetup from './backgroundSetup';
 import Pufferfish from "../classes/Pufferfish";
 import Whale from "../classes/Whale";
+import Enemy from "../classes/Enemy";
+import Harpoon from "../classes/Harpoon";
+import Shark from "../classes/Shark";
 
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -14,10 +17,15 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export default class Scene01 extends Phaser.Scene {
 	private player: Pufferfish;
+	private playerIsAlive = true;
 	private whale: Whale;
-	wasd: object;
-	cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
-	playerIsAlive = true;
+
+	private wasd: object;
+	private cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
+
+	harpoon: Harpoon;
+	shark: Shark;
+	enemyGroup: Phaser.Physics.Arcade.Group;
 
 	constructor() {
 		super(sceneConfig);
@@ -27,12 +35,14 @@ export default class Scene01 extends Phaser.Scene {
 
 	}
 
+	// ****************************************** Create ********************************************************** //
 	public create() {
 		//
 		backgroundSetup(this);
 		this.createPlayer();
 		this.createWhale();
 		this.createControls();
+		this.createEnemyGroup();
 	}
 
 	createControls() {
@@ -44,11 +54,22 @@ export default class Scene01 extends Phaser.Scene {
 		this.whale = new Whale(this);
 	}
 
-	createPlayer(): any {
+	createPlayer() {
 		this.player = new Pufferfish(this);
 	}
 
-	// *********************** Updates **************************** //
+	createEnemyGroup() {
+		this.enemyGroup = this.physics.add.group();
+		this.enemyGroup.runChildUpdate = true;
+
+		let myharpoon = new Harpoon(this);
+		this.shark = new Shark(this);
+
+		this.enemyGroup.add(myharpoon);
+		this.enemyGroup.add(this.shark);
+	}
+
+	// ********************************************* Update *************************************************** //
 	public update() {
 		this.whale.update();
 		this.player.update();
@@ -85,5 +106,9 @@ export default class Scene01 extends Phaser.Scene {
 		}
 	}
 
+	updateEnemies() {
+	}
+
+	// ********************* destroy *************************************** //
 	public destroy() { }
 }
