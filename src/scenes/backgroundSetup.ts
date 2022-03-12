@@ -11,6 +11,4 @@ export default function backgroundSetup(scene: Phaser.Scene) {
 
 	let coral02 = scene.add.sprite(250, gameSettings.height - 175, "coral_02");
 	coral02.setOrigin(0, 0);
-
-	let bubble01 = new Bubble(scene);
 }

@@ -15,7 +15,6 @@ export default class YOURCLASSNAMEHERE extends Phaser.GameObjects.Ellipse {
 		this.setOrigin(0, 0);
 
 		scene.physics.add.existing(this);
-		scene.add.existing(this);
 		this.setStrokeStyle(3, 0x000000);
 	}
 

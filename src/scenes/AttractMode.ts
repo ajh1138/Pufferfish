@@ -43,8 +43,8 @@ export default class AttractMode extends Phaser.Scene {
 		});
 
 		//	this.introMusic = this.sound.add("introMusic");
-
-		//this.startGame();
+ 
+		this.startGame();
 	}
 
 	public update() {

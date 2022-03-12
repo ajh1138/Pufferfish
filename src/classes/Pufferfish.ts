@@ -1,7 +1,7 @@
 import * as Phaser from "phaser";
 import { gameSettings } from "../gameSettings";
 
-export default class Pufferfish extends Phaser.GameObjects.Sprite {
+export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 	public speedX: number;
 	public speedY: number;
 
@@ -17,13 +17,22 @@ export default class Pufferfish extends Phaser.GameObjects.Sprite {
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
+		this.setDrag(0.95, 0.95);
+		this.setDamping(true);
 	}
 
 	public reset = () => {
-		//
+		this.setVelocityY(0);
 	};
 
 	public update = () => {
 		// TODO: animate and move the fish...
+		if (this.y < gameSettings.playerMinY) {
+			this.setVelocityY(0);
+		}
+
+		if (this.y >= gameSettings.playerMaxY) {
+			this.setVelocity(0);
+		}
 	};
 }
