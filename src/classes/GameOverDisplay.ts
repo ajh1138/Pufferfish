@@ -21,15 +21,18 @@ export default class GameOverDisplay extends Phaser.GameObjects.Text {
 		this.setDepth(12);
 		this.instructionsText.setDepth(12);
 
+		this.hide();
 		scene.add.existing(this);
 		scene.add.existing(this.instructionsText);
 	}
 
 	public hide() {
+		this.instructionsText.setAlpha(0);
 		this.setAlpha(0);
 	}
 
 	public show() {
+		this.instructionsText.setAlpha(0);
 		this.setAlpha(1);
 	}
 

@@ -8,6 +8,7 @@ export default function backgroundSetup(scene: Phaser.Scene) {
 
 	let coral01 = scene.add.sprite(50, gameSettings.height - 195, "coral_01");
 	coral01.setOrigin(0, 0);
+	coral01.setDepth(10);
 
 	let coral02 = scene.add.sprite(250, gameSettings.height - 175, "coral_02");
 	coral02.setOrigin(0, 0);

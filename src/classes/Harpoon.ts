@@ -18,7 +18,7 @@ export default class Harpoon extends Enemy {
 		console.log("harpoon respawn");
 		super.respawn();
 		this.setAngle(-45);
-		this.x = Phaser.Math.Between(400, gameSettings.width);
+		this.x = Phaser.Math.Between(500, gameSettings.width);
 		this.y = -90;
 		this.isRespawning = false;
 	}

@@ -7,6 +7,7 @@ export default class Shark extends Enemy {
 
 	constructor(scene: Phaser.Scene) {
 		super(scene, "shark", 150, gameSettings.sharkDamage, gameSettings.sharkPoints);
+		this.setScale(.7);
 	}
 
 	public respawn() {

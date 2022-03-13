@@ -10,6 +10,8 @@ import Shark from "../classes/Shark";
 import HealthMeter from "../classes/HealthMeter";
 import Scoreboard from "../classes/Scoreboard";
 import GameOverDisplay from "../classes/GameOverDisplay";
+import Jellyfish from "../classes/Jellyfish";
+import PlayerLivesDisplay from "../classes/PlayerLivesDisplay";
 
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -39,6 +41,7 @@ export default class Scene01 extends Phaser.Scene {
 	healthMeter: HealthMeter;
 	scoreboard: Scoreboard;
 	gameOverDisplay: GameOverDisplay;
+	playerLivesDisplay: PlayerLivesDisplay;
 
 	constructor() {
 		super(sceneConfig);
@@ -56,7 +59,7 @@ export default class Scene01 extends Phaser.Scene {
 		this.createPlayer();
 		this.createWhale();
 		this.createControls();
-		this.createEnemyGroup();
+		this.createEnemies();
 		this.createColliders();
 	}
 
@@ -64,6 +67,7 @@ export default class Scene01 extends Phaser.Scene {
 		this.healthMeter = new HealthMeter(this);
 		this.scoreboard = new Scoreboard(this);
 		this.gameOverDisplay = new GameOverDisplay(this);
+		this.playerLivesDisplay = new PlayerLivesDisplay(this);
 	}
 
 	createControls() {
@@ -81,19 +85,17 @@ export default class Scene01 extends Phaser.Scene {
 		this.player = new Pufferfish(this);
 	}
 
-	createEnemyGroup() {
+	createEnemies() {
 		this.enemies = this.physics.add.group();
 		this.enemies.runChildUpdate = true;
 
-		//	let myharpoon = new Harpoon(this);
-		let poopshark = new Shark(this);
-		let poop = new Harpoon(this);
+		let shark = new Shark(this);
+		let harpoon = new Harpoon(this);
+		let jellyfish = new Jellyfish(this);
 
-		//	this.enemies.add(myharpoon);
-		this.enemies.add(poopshark);
-		this.enemies.add(poop);
-
-		//this.shark.setVelocityX(-300);
+		this.enemies.add(shark);
+		this.enemies.add(harpoon);
+		this.enemies.add(jellyfish);
 	}
 
 	createColliders() {
@@ -102,7 +104,7 @@ export default class Scene01 extends Phaser.Scene {
 		});
 
 		this.physics.add.overlap(this.whale, this.enemies, (obj1, obj2) => {
-			this.handleWhaleEnemyCollision(obj1, obj2);
+			//			this.handleWhaleEnemyCollision(obj1, obj2);
 		});
 	}
 
@@ -132,10 +134,10 @@ export default class Scene01 extends Phaser.Scene {
 				}
 			}
 
-			if (goRight && this.player.x < gameSettings.width - this.player.width) {
+			if (goRight && this.player.x < gameSettings.playerMaxX) {
 				this.player.setVelocityX(gameSettings.playerSpeed);
 				//		this.player.setTexture("player", 4);
-			} else if (goLeft && this.player.x > 0) {
+			} else if (goLeft && this.player.x > gameSettings.playerMinX) {
 				this.player.setVelocityX(-gameSettings.playerSpeed);
 				//		this.player.setTexture("player", 2);
 			} else {
@@ -165,15 +167,7 @@ export default class Scene01 extends Phaser.Scene {
 				this.player.puffs--;
 				this.score = this.score + baseEnemy.pointValue;
 
-				if (obj2 instanceof Shark) {
-					let theShark = obj2 as Shark;
-					theShark.dieDramatically();
-				}
-
-				if (obj2 instanceof Harpoon) {
-					let harp = obj2 as Harpoon;
-					harp.dieDramatically();
-				}
+				baseEnemy.dieDramatically();
 			} else {
 				this.handlePlayerIsHurt();
 			}
@@ -189,6 +183,7 @@ export default class Scene01 extends Phaser.Scene {
 	handlePlayerIsHurt() {
 		this.player.dieDramatically();
 		this.playerLives--;
+		this.playerLivesDisplay.update(this.playerLives);
 
 		if (this.playerLives < 1) {
 			this.handleGameOver();
@@ -237,7 +232,9 @@ export default class Scene01 extends Phaser.Scene {
 			anEnemy.setVelocity(0, 0);
 			anEnemy.setAcceleration(0, 0);
 			anEnemy.isAlive = false;
-		})
+		});
+
+		this.gameOverDisplay.show();
 	}
 
 	handleRestartGame() {

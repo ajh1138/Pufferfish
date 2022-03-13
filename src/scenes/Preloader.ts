@@ -37,6 +37,7 @@ export default class Preloader extends Phaser.Scene {
 		this.load.image("whale", "assets/sprites/whale_temp.png");
 		this.load.image("harpoon", "assets/sprites/harpoon_01.png");
 		this.load.image("shark", "assets/sprites/shark_01.png");
+		this.load.image("jellyfish", "assets/sprites/jellyfish_01.png");
 		// this.load.image("stars02", "assets/stars02.png");
 		// this.load.spritesheet("enemy01", "assets/sprites/enemy-01.png", {
 		// 	frameWidth: 48,

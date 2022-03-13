@@ -32,7 +32,6 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	public respawn() {
-		console.log("base floop");
 		this.reset();
 	}
 
@@ -55,5 +54,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 		let posY = Phaser.Math.Between(gameSettings.enemyMinY, gameSettings.enemyMaxY);
 		this.x = posX;
 		this.y = posY;
+	}
+
+	public dieDramatically() {
+		console.log("base die");
 	}
 }
