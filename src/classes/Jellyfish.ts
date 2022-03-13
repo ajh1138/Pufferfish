@@ -2,9 +2,9 @@ import * as Phaser from "phaser";
 import { gameSettings } from "../gameSettings";
 import Enemy from "./Enemy";
 
-export default class YOURCLASSNAMEHERE extends Enemy {
+export default class Jellyfish extends Enemy {
 	constructor(scene: Phaser.Scene) {
-		super(scene, "harpoon", 300, gameSettings.jellyfishDamage);
+		super(scene, "jellyfish", 300, gameSettings.jellyfishDamage, gameSettings.jellyfishPoints);
 
 	}
 

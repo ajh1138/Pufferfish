@@ -8,6 +8,7 @@ import Enemy from "../classes/Enemy";
 import Harpoon from "../classes/Harpoon";
 import Shark from "../classes/Shark";
 import HealthMeter from "../classes/HealthMeter";
+import Scoreboard from "../classes/Scoreboard";
 
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -18,9 +19,11 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export default class Scene01 extends Phaser.Scene {
 	private player: Pufferfish;
+	private whale: Whale;
+
 	private playerMaxPuffs = 3;
 	private playerLives = gameSettings.playerLives;
-	private whale: Whale;
+	private score = 0;
 
 	private wasd: object;
 	private cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -31,6 +34,7 @@ export default class Scene01 extends Phaser.Scene {
 	spacebar: Phaser.Input.Keyboard.Key;
 
 	healthMeter: HealthMeter;
+	scoreboard: Scoreboard;
 
 	constructor() {
 		super(sceneConfig);
@@ -54,6 +58,7 @@ export default class Scene01 extends Phaser.Scene {
 
 	createUI() {
 		this.healthMeter = new HealthMeter(this);
+		this.scoreboard = new Scoreboard(this);
 	}
 
 	createControls() {
@@ -143,17 +148,25 @@ export default class Scene01 extends Phaser.Scene {
 
 	updateUI() {
 		this.healthMeter.update(this.whale.health);
+		this.scoreboard.update(this.score);
 	}
 
 	// ********************* Handle Events ********************************* //
 	handlePlayerEnemyCollision(obj1, obj2) {
 		if (this.player.isAlive && obj2.isAlive) {
 			if (this.player.puffs > 0) {
+				let baseEnemy = obj2 as Enemy;
 				this.player.puffs--;
+				this.score = this.score + baseEnemy.pointValue;
 
 				if (obj2 instanceof Shark) {
 					let theShark = obj2 as Shark;
 					theShark.dieDramatically();
+				}
+
+				if (obj2 instanceof Harpoon) {
+					let harp = obj2 as Harpoon;
+					harp.dieDramatically();
 				}
 			} else {
 				this.handlePlayerIsHurt();
@@ -190,7 +203,7 @@ export default class Scene01 extends Phaser.Scene {
 	handleWhaleEnemyCollision(obj1, obj2) {
 		let enemy = obj2 as Enemy;
 		console.log("enemy", enemy);
-		this.whale.health = this.whale.health - enemy.damage;
+		//		this.whale.health = this.whale.health - enemy.damage;
 
 	}
 

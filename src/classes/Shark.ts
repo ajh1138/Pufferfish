@@ -6,7 +6,7 @@ export default class Shark extends Enemy {
 	public deathVelocityY = - 100;
 
 	constructor(scene: Phaser.Scene) {
-		super(scene, "shark", 150, gameSettings.sharkDamage);
+		super(scene, "shark", 150, gameSettings.sharkDamage, gameSettings.sharkPoints);
 	}
 
 	public update() {

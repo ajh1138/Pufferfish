@@ -4,7 +4,7 @@ import Enemy from "./Enemy";
 
 export default class Harpoon extends Enemy {
 	constructor(scene: Phaser.Scene) {
-		super(scene, "harpoon", 300, gameSettings.harpoonDamage);
+		super(scene, "harpoon", 300, gameSettings.harpoonDamage, gameSettings.harpoonPoints);
 	}
 
 	public update() {
@@ -22,6 +22,9 @@ export default class Harpoon extends Enemy {
 	};
 
 	public dieDramatically() {
-
+		this.isAlive = false;
+		this.setAngularVelocity(100);
+		this.setVelocityX(200);
+		this.setVelocityY(-200);
 	}
 }

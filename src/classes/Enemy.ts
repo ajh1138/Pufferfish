@@ -7,16 +7,18 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 	public speedY: number;
 
 	public damage: number;
+	public pointValue: number;
 
-	constructor(scene: Phaser.Scene, textureName: string, speed: number, damage: number) {
+	constructor(scene: Phaser.Scene, textureName: string, speed: number, damage: number, pointValue: number) {
 		super(scene, 0, 0, textureName);
-		console.log("hi, i'm an enemy.", speed);
+
 		this.setOrigin(0, 0);
 
 		this.setInitialPosition();
 
 		this.speedX = -speed;
 		this.damage = damage;
+		this.pointValue = pointValue;
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
@@ -26,8 +28,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 		this.flipX = false;
 		this.flipY = false;
 		this.isAlive = true;
-		this.setVelocity(0, 0);
 		this.setInitialPosition();
+		this.setVelocity(0, 0);
+		this.setAngularVelocity(0);
+		this.setAngle(0);
 	};
 
 	private setInitialPosition() {

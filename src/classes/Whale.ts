@@ -16,7 +16,6 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 
 		this.setOrigin(0, 0);
 
-
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
 		this.flipX = true;
@@ -26,7 +25,8 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 	public reset = () => {
 		let posY = Phaser.Math.Between(this.minY, this.maxY);
 		this.y = posY;
-		this.x = 35;
+		this.x = gameSettings.whaleX;
+		this.health = gameSettings.whaleHealth;
 
 		this.setAccelerationY(gameSettings.whaleBaseSpeed);
 	};

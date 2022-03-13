@@ -5,7 +5,7 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 	public speedX: number;
 	public speedY: number;
 	public isAlive = true;
-	public puffs: 0;
+	public puffs = 0;
 
 	constructor(scene: Phaser.Scene) {
 		let posY = Phaser.Math.Between(10, gameSettings.width - 10);
@@ -38,7 +38,10 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 
 	public update = () => {
 		// TODO: animate and move the fish...
-		this.scale = (this.puffs * .35) + 1;
+		let scale = Math.max((this.puffs * .35) + 1, 1);
+		this.setScale(scale);
+
+		console.log("scale", this.puffs);
 
 		if (this.y < gameSettings.playerMinY) {
 			this.setVelocityY(0);
