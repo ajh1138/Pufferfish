@@ -9,6 +9,7 @@ import Harpoon from "../classes/Harpoon";
 import Shark from "../classes/Shark";
 import HealthMeter from "../classes/HealthMeter";
 import Scoreboard from "../classes/Scoreboard";
+import GameOverDisplay from "../classes/GameOverDisplay";
 
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -25,6 +26,8 @@ export default class Scene01 extends Phaser.Scene {
 	private playerLives = gameSettings.playerLives;
 	private score = 0;
 
+	private gameIsOver = false;
+
 	private wasd: object;
 	private cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
 
@@ -35,6 +38,7 @@ export default class Scene01 extends Phaser.Scene {
 
 	healthMeter: HealthMeter;
 	scoreboard: Scoreboard;
+	gameOverDisplay: GameOverDisplay;
 
 	constructor() {
 		super(sceneConfig);
@@ -59,6 +63,7 @@ export default class Scene01 extends Phaser.Scene {
 	createUI() {
 		this.healthMeter = new HealthMeter(this);
 		this.scoreboard = new Scoreboard(this);
+		this.gameOverDisplay = new GameOverDisplay(this);
 	}
 
 	createControls() {
@@ -138,12 +143,13 @@ export default class Scene01 extends Phaser.Scene {
 			}
 
 			if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-				this.handlePlayerPuff();
+				if (this.gameIsOver) {
+					this.handleRestartGame();
+				} else {
+					this.handlePlayerPuff();
+				}
 			}
 		}
-	}
-
-	updateEnemies() {
 	}
 
 	updateUI() {
@@ -186,8 +192,12 @@ export default class Scene01 extends Phaser.Scene {
 
 		if (this.playerLives < 1) {
 			this.handleGameOver();
-		} else {
-			setTimeout(() => { this.resetLevel(); }, gameSettings.playerDeathPauseMilliseconds);
+		} else if (this.whale.isAlive) {
+			setTimeout(() => { this.resetLevel(); }, gameSettings.playerRespawnMilliseconds);
+			this.enemies.children.each(element => {
+				let anEnemy = element as Enemy;
+				anEnemy.prepareToRespawn();
+			});
 		}
 	}
 
@@ -196,19 +206,42 @@ export default class Scene01 extends Phaser.Scene {
 
 		this.enemies.children.each(element => {
 			let enemy = element as Enemy;
-			enemy.reset();
+			enemy.prepareToRespawn();
 		});
 	}
 
 	handleWhaleEnemyCollision(obj1, obj2) {
-		let enemy = obj2 as Enemy;
-		console.log("enemy", enemy);
-		//		this.whale.health = this.whale.health - enemy.damage;
+		if (this.whale.isAlive) {
+			let enemy = obj2 as Enemy;
+			enemy.isAlive = false;
+			this.whale.health = this.whale.health - enemy.damage;
 
+			if (this.whale.health <= 0) {
+				this.handleWhaleDeath();
+			} else {
+				this.whale.reactToHit();
+			}
+		}
+	}
+
+	handleWhaleDeath() {
+		this.whale.dieDramatically();
+		setTimeout(() => { this.handleGameOver() }, gameSettings.gameOverDelayMilliseconds);
 	}
 
 	handleGameOver() {
+		this.gameIsOver = true;
 
+		this.enemies.children.each(element => {
+			let anEnemy = element as Enemy;
+			anEnemy.setVelocity(0, 0);
+			anEnemy.setAcceleration(0, 0);
+			anEnemy.isAlive = false;
+		})
+	}
+
+	handleRestartGame() {
+		this.scene.launch("Scene01");
 	}
 	// ********************* destroy *************************************** //
 	public destroy() { }

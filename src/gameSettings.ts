@@ -8,12 +8,13 @@ export const gameSettings = {
 	playerStartY: 360,
 	playerMinY: 20,
 	playerMaxY: 680,
-	playerDeathPauseMilliseconds: 4000,
+	playerRespawnMilliseconds: 4000,
 	whaleX: 30,
 	whaleBaseSpeed: 15,
 	whaleHealth: 100,
 	enemyMinY: 30,
 	enemyMaxY: 570,
+	enemyRespawnMilliseconds: 3000,
 	enemyPointValue: 50,
 	sharkDamage: 20,
 	harpoonDamage: 10,
@@ -23,4 +24,6 @@ export const gameSettings = {
 	jellyfishPoints: 75,
 	healthMeterBg: 0xffffff,
 	healthMeterColor: 0x159ce4,
+	gameOverDelayMilliseconds: 3000,
+
 };

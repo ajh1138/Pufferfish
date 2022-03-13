@@ -8,6 +8,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 	public damage: number;
 	public pointValue: number;
+	public doNotSetInitialPosition = false;
+	public isRespawning = false;
+	public respawnMilliseconds = 3000;
 
 	constructor(scene: Phaser.Scene, textureName: string, speed: number, damage: number, pointValue: number) {
 		super(scene, 0, 0, textureName);
@@ -24,11 +27,24 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 		scene.add.existing(this);
 	}
 
+	public prepareToRespawn() {
+
+	}
+
+	public respawn() {
+		console.log("base floop");
+		this.reset();
+	}
+
 	public reset = () => {
 		this.flipX = false;
 		this.flipY = false;
 		this.isAlive = true;
-		this.setInitialPosition();
+
+		if (this.doNotSetInitialPosition == false) {
+			this.setInitialPosition();
+		}
+
 		this.setVelocity(0, 0);
 		this.setAngularVelocity(0);
 		this.setAngle(0);

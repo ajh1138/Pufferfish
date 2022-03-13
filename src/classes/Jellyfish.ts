@@ -8,13 +8,17 @@ export default class Jellyfish extends Enemy {
 
 	}
 
+	public respawn() {
+		super.respawn();
+	}
+
 	public update = () => {
 		if (this.x > gameSettings.width) {
 			this.setVelocityX(this.speedX);
 		}
 
 		if (this.y <= gameSettings.enemyMinY - this.height) {
-			this.reset();
+			setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
 		}
 	};
 

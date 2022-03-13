@@ -5,6 +5,8 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 	public speedX: number;
 	public speedY: number;
 
+	public isAlive = true;
+
 	public minY = 70;
 	public maxY = gameSettings.height - 200;
 
@@ -18,7 +20,6 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
-		this.flipX = true;
 		this.reset();
 	}
 
@@ -32,14 +33,27 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 	};
 
 	public update = () => {
-		if (this.y <= this.minY) {
-			this.setVelocityY(4);
-			this.setAccelerationY(gameSettings.whaleBaseSpeed);
-		}
+		if (this.isAlive) {
+			if (this.y <= this.minY) {
+				this.setVelocityY(4);
+				this.setAccelerationY(gameSettings.whaleBaseSpeed);
+			}
 
-		if (this.y >= this.maxY) {
-			this.setVelocityY(-4);
-			this.setAccelerationY(-gameSettings.whaleBaseSpeed);
+			if (this.y >= this.maxY) {
+				this.setVelocityY(-4);
+				this.setAccelerationY(-gameSettings.whaleBaseSpeed);
+			}
 		}
 	};
+
+	public reactToHit() {
+
+	}
+
+	public dieDramatically() {
+		this.isAlive = false;
+		this.flipY = true;
+		this.setVelocity(0, 0);
+		this.setAcceleration(0, -gameSettings.whaleBaseSpeed / 2);
+	}
 }

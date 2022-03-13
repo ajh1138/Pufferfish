@@ -28,7 +28,6 @@ export default class HealthMeter extends Phaser.GameObjects.Rectangle {
 
 	public update(health: number) {
 		let scaleWidth = ((health / 100) * this.width) - (this.paddingSides * 2);
-		console.log("scalewidth", scaleWidth);
 		this.meterScale.width = scaleWidth;
 	}
 }

@@ -9,18 +9,29 @@ export default class Shark extends Enemy {
 		super(scene, "shark", 150, gameSettings.sharkDamage, gameSettings.sharkPoints);
 	}
 
+	public respawn() {
+		if (this.isRespawning) {
+			this.isRespawning = false;
+			this.reset();
+		}
+
+	}
+
 	public update() {
 		if (this.x <= -100) {
-			this.reset();
+			this.isRespawning = true;
+			setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
+		}
+
+		if (this.y <= gameSettings.enemyMinY - this.height) {
+			this.isRespawning = true;
+			setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
 		}
 
 		if (this.x > gameSettings.width) {
 			this.setVelocityX(this.speedX);
 		}
 
-		if (this.y <= gameSettings.enemyMinY - this.height) {
-			this.reset();
-		}
 	};
 
 	public dieDramatically() {

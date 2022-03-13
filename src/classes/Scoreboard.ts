@@ -4,7 +4,8 @@ import { gameSettings } from "../gameSettings";
 export default class Scoreboard extends Phaser.GameObjects.Text {
 
 	constructor(scene: Phaser.Scene) {
-		super(scene, 50, 20, "", { fontFamily: `"${gameSettings.mainFontName}"`, align: "center", color: "yellow", fontSize: "24px" });
+		let scoreStyle = { fontFamily: `"${gameSettings.mainFontName}"`, align: "center", color: "yellow", fontSize: "24px" };
+		super(scene, 50, 20, "", scoreStyle);
 
 		this.setOrigin(0, 0);
 

@@ -41,8 +41,6 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 		let scale = Math.max((this.puffs * .35) + 1, 1);
 		this.setScale(scale);
 
-		console.log("scale", this.puffs);
-
 		if (this.y < gameSettings.playerMinY) {
 			this.setVelocityY(0);
 		}
