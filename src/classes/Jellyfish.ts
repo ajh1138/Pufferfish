@@ -2,18 +2,13 @@ import * as Phaser from "phaser";
 import { gameSettings } from "../gameSettings";
 import Enemy from "./Enemy";
 
-export default class Shark extends Enemy {
-	public deathVelocityY = - 100;
-
+export default class YOURCLASSNAMEHERE extends Enemy {
 	constructor(scene: Phaser.Scene) {
-		super(scene, "shark", 150, gameSettings.sharkDamage);
+		super(scene, "harpoon", 300, gameSettings.jellyfishDamage);
+
 	}
 
-	public update() {
-		if (this.x <= -100) {
-			this.reset();
-		}
-
+	public update = () => {
 		if (this.x > gameSettings.width) {
 			this.setVelocityX(this.speedX);
 		}
@@ -24,9 +19,6 @@ export default class Shark extends Enemy {
 	};
 
 	public dieDramatically() {
-		this.isAlive = false;
-		this.flipY = true;
-		this.setVelocityX(0);
-		this.setVelocityY(this.deathVelocityY);
+
 	}
 }

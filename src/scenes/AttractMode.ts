@@ -43,7 +43,7 @@ export default class AttractMode extends Phaser.Scene {
 		});
 
 		//	this.introMusic = this.sound.add("introMusic");
- 
+
 		this.startGame();
 	}
 
@@ -53,7 +53,7 @@ export default class AttractMode extends Phaser.Scene {
 		}
 	}
 
-	public destroy() {}
+	public destroy() { }
 
 	createTitle = () => {
 		let titleObj = this.add.text(this.midpointX, this.midpointY - 172, "pufferfish", this.titleStyle);
@@ -61,6 +61,12 @@ export default class AttractMode extends Phaser.Scene {
 		let titleMidpointX = titleObj.width / 2;
 		let titlePosX = this.midpointX - titleMidpointX;
 		titleObj.setX(titlePosX);
+
+		let subtitleObj = this.add.text(this.midpointX, this.midpointY - 90, "or, The Whale Isn't Paying Attention", { ...this.titleStyle, fontSize: "24px" });
+		subtitleObj.setOrigin(0, 0);
+		let subtitleMidpointX = subtitleObj.width / 2;
+		let subtitlePosX = this.midpointX - subtitleMidpointX;
+		titleObj.setX(subtitlePosX);
 
 		return titleObj;
 	};

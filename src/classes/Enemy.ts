@@ -2,30 +2,33 @@ import * as Phaser from "phaser";
 import { gameSettings } from "../gameSettings";
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
+	public isAlive = true;
 	public speedX: number;
 	public speedY: number;
 
-	constructor(scene: Phaser.Scene, textureName: string, speed: number) {
-		super(scene, -100, -100, textureName, 0);
-		console.log("hi, i'm an enemy.");
+	public damage: number;
+
+	constructor(scene: Phaser.Scene, textureName: string, speed: number, damage: number) {
+		super(scene, 0, 0, textureName);
+		console.log("hi, i'm an enemy.", speed);
 		this.setOrigin(0, 0);
 
 		this.setInitialPosition();
 
+		this.speedX = -speed;
+		this.damage = damage;
+
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
-		this.setVelocityX(-speed);
 	}
 
 	public reset = () => {
+		this.flipX = false;
+		this.flipY = false;
+		this.isAlive = true;
+		this.setVelocity(0, 0);
 		this.setInitialPosition();
 	};
-
-	// public update = () => {
-	// 	if (this.x <= -100) {
-	// 		this.reset();
-	// 	}
-	// };
 
 	private setInitialPosition() {
 		let posX = gameSettings.width + 100;

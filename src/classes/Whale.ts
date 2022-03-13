@@ -8,6 +8,8 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 	public minY = 70;
 	public maxY = gameSettings.height - 200;
 
+	public health = gameSettings.whaleHealth;
+
 	constructor(scene: Phaser.Scene) {
 		let spriteName = "whale";
 		super(scene, 0, 0, spriteName, 0);
