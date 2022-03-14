@@ -31,6 +31,10 @@ export default class Preloader extends Phaser.Scene {
 		this.load.audio("boing_01", ["assets/sounds/zapsplat_boing_01.mp3"]);
 		this.load.audio("whale_hurt", ["assets/sounds/whale_hurt.mp3"]);
 		this.load.audio("whale_die", ["assets/sounds/whale_die.mp3"]);
+		this.load.audio("zap_01", ["assets/sounds/zapsplat_zap.mp3"]);
+		this.load.audio("shark_death", ["assets/sounds/grunt_01.mp3"]);
+		this.load.audio("stab_01", ["assets/sounds/stab_01.mp3"]);
+		this.load.audio("stab_02", ["assets/sounds/stab_02.mp3"]);
 		// this.load.audio("playerExplode", ["assets/sounds/boom8.mp3"]);
 	}
 

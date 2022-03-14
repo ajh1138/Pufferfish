@@ -100,7 +100,7 @@ export default class Scene01 extends Phaser.Scene {
 
 	createColliders() {
 		this.physics.add.overlap(this.player, this.enemies, (obj1, obj2) => {
-			//this.handlePlayerEnemyCollision(obj1, obj2);
+			this.handlePlayerEnemyCollision(obj1, obj2);
 		});
 
 		this.physics.add.overlap(this.whale, this.enemies, (obj1, obj2) => {
@@ -215,7 +215,7 @@ export default class Scene01 extends Phaser.Scene {
 				this.handleWhaleDeath();
 			} else {
 				this.whale.reactToHit();
-				enemy.doPlayerHit();
+				enemy.doWhaleHit();
 			}
 		}
 	}
@@ -237,7 +237,7 @@ export default class Scene01 extends Phaser.Scene {
 	}
 
 	handleRestartGame() {
-		this.scene.launch("Scene01");
+		this.scene.start("Scene01");
 	}
 	// ********************* destroy *************************************** //
 	public destroy() { }

@@ -8,6 +8,10 @@ export default class Shark extends Enemy {
 	constructor(scene: Phaser.Scene) {
 		super(scene, "shark", 150, gameSettings.sharkDamage, gameSettings.sharkPoints);
 		this.setScale(.7);
+
+		this.whaleHitSound = "bite";
+		this.playerHitSound = "bite";
+		this.deathSound = "shark_death";
 	}
 
 	public respawn() {
@@ -41,10 +45,15 @@ export default class Shark extends Enemy {
 		this.flipY = true;
 		this.setVelocityX(0);
 		this.setVelocityY(this.deathVelocityY);
-		this.scene.sound.play("pop_02");
+
+		super.dieDramatically();
 	}
 
 	public doPlayerHit() {
-		this.scene.sound.play("bite");
+		super.doPlayerHit();
+	}
+
+	public doWhaleHit() {
+		super.doWhaleHit();
 	}
 }

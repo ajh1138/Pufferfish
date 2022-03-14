@@ -11,6 +11,11 @@ export default class Harpoon extends Enemy {
 		super(scene, "harpoon", 300, gameSettings.harpoonDamage, gameSettings.harpoonPoints);
 		this.doNotSetInitialPosition = true;
 		this.scale = .5;
+
+		this.whaleHitSound = "stab_01";
+		this.playerHitSound = "stab_02";
+		this.deathSound = "boing_01";
+
 		this.respawn();
 	}
 
@@ -55,9 +60,15 @@ export default class Harpoon extends Enemy {
 		this.setAngularVelocity(150);
 		this.setVelocity(200, -200);
 		this.scene.sound.play("boing_01");
+
+		super.dieDramatically();
 	}
 
 	public doPlayerHit() {
+		super.doPlayerHit();
+	}
 
+	public doWhaleHit() {
+		super.doWhaleHit();
 	}
 }

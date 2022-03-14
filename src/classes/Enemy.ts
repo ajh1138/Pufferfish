@@ -13,6 +13,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 	public isRespawning = false;
 	public respawnMilliseconds = 3000;
 
+	public whaleHitSound: string;
+	public playerHitSound: string;
+	public deathSound: string;
+
 	constructor(scene: Phaser.Scene, textureName: string, speed: number, damage: number, pointValue: number) {
 		super(scene, 0, 0, textureName);
 
@@ -59,10 +63,15 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 	public dieDramatically() {
 		console.log("base die");
+		this.scene.sound.play(this.deathSound);
 	}
 
 	public doPlayerHit() {
+		this.scene.sound.play(this.playerHitSound);
+	}
 
+	public doWhaleHit() {
+		this.scene.sound.play(this.whaleHitSound);
 	}
 
 	public stopEverything() {

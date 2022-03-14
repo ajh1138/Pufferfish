@@ -10,8 +10,13 @@ export default class Jellyfish extends Enemy {
 	constructor(scene: Phaser.Scene) {
 		super(scene, "jellyfish", 300, gameSettings.jellyfishDamage, gameSettings.jellyfishPoints);
 		this.setScale(.8);
-		this.respawn();
+
+		this.whaleHitSound = "zap_01";
+		this.playerHitSound = "zap_01";
+		this.deathSound = "pop_02";
+
 		this.doNotSetInitialPosition = true;
+		this.respawn();
 	}
 
 	public prepareToRespawn() {
@@ -52,10 +57,14 @@ export default class Jellyfish extends Enemy {
 
 	public dieDramatically() {
 		this.isAlive = false;
-		this.scene.sound.play("pop_02");
+		super.dieDramatically();
 	}
 
 	public doPlayerHit() {
+		super.doPlayerHit();
+	}
 
+	public doWhaleHit() {
+		super.doWhaleHit();
 	}
 }
