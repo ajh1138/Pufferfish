@@ -5,9 +5,10 @@ import AttractMode from "./scenes/AttractMode";
 import Scene01 from "./scenes/Scene01";
 import Scene02 from "./scenes/Scene02";
 import Scene03 from "./scenes/Scene03";
+import Credits from "./scenes/Credits";
 
 export const config: Phaser.Types.Core.GameConfig = {
-	scene: [Preloader, AttractMode, Scene01, Scene02, Scene03],
+	scene: [Preloader, AttractMode, Credits, Scene01, Scene02, Scene03],
 	title: "Pufferfish",
 	type: Phaser.AUTO,
 	scale: {

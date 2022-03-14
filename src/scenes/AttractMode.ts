@@ -36,15 +36,38 @@ export default class AttractMode extends Phaser.Scene {
 
 		this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-		this.sound.volume = 0.3;
+		this.sound.volume = 0.5;
 
-		this.input.on("pointerdown", (pointer) => {
-			this.startGame();
-		});
+		this.createCreditsText();
+		this.createStartText();
+
+		// this.input.on("pointerdown", (pointer) => {
+		// 	this.startGame();
+		// });
 
 		//	this.introMusic = this.sound.add("introMusic");
 
-		this.startGame();
+		//this.startGame();
+	}
+
+	createStartText() {
+		let startText = new Phaser.GameObjects.Text(this, gameSettings.width / 2, 450, "Press spacebar to start", gameSettings.baseFontConfig);
+		startText.setOrigin(.5, .5);
+		startText.setInteractive();
+		startText.on("pointerdown", () => { this.scene.start("Scene01") });
+		this.add.existing(startText);
+	}
+
+	createCreditsText() {
+		let creditsText = new Phaser.GameObjects.Text(this, gameSettings.width / 2, 550, "Credits", gameSettings.baseFontConfig);
+		creditsText.setInteractive();
+
+		creditsText.on('pointerdown', () => {
+			this.sound.play("pop_02");
+			this.scene.start("Credits");
+		});
+
+		this.add.existing(creditsText);
 	}
 
 	public update() {
@@ -62,7 +85,7 @@ export default class AttractMode extends Phaser.Scene {
 		let titlePosX = this.midpointX - titleMidpointX;
 		titleObj.setX(titlePosX);
 
-		let subtitleObj = this.add.text(this.midpointX, this.midpointY - 90, "or, The Whale Isn't Paying Attention", { ...this.titleStyle, fontSize: "24px" });
+		let subtitleObj = this.add.text(this.midpointX, this.midpointY - 90, "or, \"The Whale Isn't Paying Attention\"", { ...this.titleStyle, fontSize: "24px" });
 		subtitleObj.setOrigin(0, 0);
 		let subtitleMidpointX = subtitleObj.width / 2;
 		let subtitlePosX = this.midpointX - subtitleMidpointX;
