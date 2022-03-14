@@ -11,6 +11,7 @@ export default class HealthMeter extends Phaser.GameObjects.Rectangle {
 		super(scene, 0, gameSettings.height - 110, 400, 50, gameSettings.healthMeterBg);
 		this.setOrigin(0, 0);
 		this.x = (gameSettings.width - this.width) / 2;
+		this.setDepth(11);
 
 		this.meterScale = new Phaser.GameObjects.Rectangle(scene,
 			this.x + this.paddingSides,

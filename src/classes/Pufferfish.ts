@@ -20,6 +20,7 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 		scene.add.existing(this);
 		this.setDrag(0.95, 0.95);
 		this.setDamping(true);
+		this.setVelocityY(20);
 	}
 
 	public reset = () => {
@@ -29,6 +30,7 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 		this.flipY = false;
 		this.puffs = 0;
 		this.setInitialPosition();
+		this.setVelocityY(20);
 	};
 
 	public setInitialPosition() {

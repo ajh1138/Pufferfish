@@ -24,7 +24,7 @@ export default class Preloader extends Phaser.Scene {
 	public destroy() { }
 
 	preloadSounds() {
-		// this.load.audio("mainMusic", ["assets/sound/NeonAction2.mp3"]);
+		this.load.audio("mainMusic", ["assets/sounds/liqwyd-coral.mp3"]);
 		this.load.audio("underwater", ["assets/sounds/underwater_01.mp3"]);
 		this.load.audio("bite", ["assets/sounds/bite.mp3"]);
 		this.load.audio("pop_01", ["assets/sounds/zapsplat_pop_01.mp3"]);
@@ -38,7 +38,6 @@ export default class Preloader extends Phaser.Scene {
 		this.load.audio("stab_02", ["assets/sounds/stab_02.mp3"]);
 		this.load.audio("gurgle_01", ["assets/sounds/gurgle_01.mp3"]);
 		this.load.audio("puff_up", ["assets/sounds/puff_up_01.mp3"]);
-		// this.load.audio("playerExplode", ["assets/sounds/boom8.mp3"]);
 	}
 
 	preloadSprites() {

@@ -24,39 +24,52 @@ export default class Jellyfish extends Enemy {
 	}
 
 	public respawn() {
-		super.respawn();
+		//	super.respawn();
+		this.isAlive = true;
+		this.setAlpha(1);
+		this.isRespawning = false;
 
 		this.y = Phaser.Math.Between(this.minY, this.maxY);
 		this.x = gameSettings.width + 150;
 		this.speedY = 200;
 		this.speedX = -60;
 		console.log("jellyfish speed Y", this.speedY);
-		setTimeout(() => { this.setVelocityY(this.speedY) }, 1000);
+		setTimeout(() => { this.setVelocity(this.speedX, this.speedY) }, 1000);
 	}
 
 	public update = () => {
-		if (this.isAlive && this.isMoving) {
+		if (this.isMoving) {
 			if (this.x > gameSettings.width) {
 				//console.log("jellyfish x", this.x);
 				this.setVelocityX(this.speedX);
 			}
 
-			if (this.x <= -200) {
+			if (this.x <= -200 && !this.isRespawning) {
+				this.isRespawning = true;
 				this.prepareToRespawn();
 			}
 
 			if (this.y <= this.minY) {
 				console.log("jellyfish y min", this.y);
-				this.setVelocityY(this.speedY);
+				if (this.isAlive) {
+					this.setVelocityY(this.speedY);
+				} else {
+					this.prepareToRespawn();
+				}
 			} else if (this.y >= this.maxY) {
 				console.log("jellyfish y max", this.y);
-				this.setVelocityY(-this.speedY);
+				if (this.isAlive) {
+					this.setVelocityY(-this.speedY);
+				} else {
+					this.prepareToRespawn();
+				}
 			}
 		}
 	};
 
 	public dieDramatically() {
 		this.isAlive = false;
+		this.scene.tweens.add({ targets: this, alpha: 0, duration: 200, ease: "Power2" });
 		super.dieDramatically();
 	}
 

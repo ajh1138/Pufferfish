@@ -36,8 +36,7 @@ export default class AttractMode extends Phaser.Scene {
 
 		this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-		this.sound.volume = 0.5;
-
+		this.createBackgroundSound();
 		this.createCreditsText();
 		this.createStartText();
 
@@ -50,16 +49,27 @@ export default class AttractMode extends Phaser.Scene {
 		//this.startGame();
 	}
 
+	createBackgroundSound() {
+		this.sound.volume = 0.5;
+
+		let ambientSound = this.sound.add("underwater", { volume: .5, loop: true });
+		ambientSound.play();
+
+		let bgMusic = this.sound.add("mainMusic", { volume: .3, loop: true });
+		bgMusic.play();
+	}
+
 	createStartText() {
 		let startText = new Phaser.GameObjects.Text(this, gameSettings.width / 2, 450, "Press spacebar to start", gameSettings.baseFontConfig);
 		startText.setOrigin(.5, .5);
 		startText.setInteractive();
-		startText.on("pointerdown", () => { this.scene.start("Scene01") });
+		startText.on("pointerdown", () => { this.startGame(); });
 		this.add.existing(startText);
 	}
 
 	createCreditsText() {
 		let creditsText = new Phaser.GameObjects.Text(this, gameSettings.width / 2, 550, "Credits", gameSettings.baseFontConfig);
+		creditsText.setOrigin(.5, .5);
 		creditsText.setInteractive();
 
 		creditsText.on('pointerdown', () => {

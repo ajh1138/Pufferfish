@@ -69,7 +69,8 @@ export default class Scene01 extends Phaser.Scene {
 		let ambientSound = this.sound.add("underwater", { volume: .5, loop: true });
 		ambientSound.play();
 
-
+		let bgMusic = this.sound.add("mainMusic", { volume: .3, loop: true });
+		bgMusic.play();
 	}
 
 	createUI() {
@@ -252,6 +253,12 @@ export default class Scene01 extends Phaser.Scene {
 	}
 
 	handleRestartGame() {
+		this.playerLives = gameSettings.playerLives;
+		this.player.isAlive = true;
+		this.gameIsOver = false;
+		this.whale.health = 100;
+		this.score = 0;
+		//		this.sound.stopAll();
 		this.scene.start("Scene01");
 	}
 	// ********************* destroy *************************************** //

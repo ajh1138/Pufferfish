@@ -10,7 +10,7 @@ export const gameSettings = {
 	playerMinX: 200,
 	playerMaxX: 800,
 	playerMinY: 20,
-	playerMaxY: 630,
+	playerMaxY: 600,
 	playerRespawnMilliseconds: 4000,
 	whaleX: 30,
 	whaleBaseSpeed: 15,

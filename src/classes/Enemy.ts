@@ -63,6 +63,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 	public dieDramatically() {
 		console.log("base die");
+		this.isAlive = false;
 		this.scene.sound.play(this.deathSound);
 	}
 
