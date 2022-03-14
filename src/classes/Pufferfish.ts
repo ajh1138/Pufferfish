@@ -54,5 +54,6 @@ export default class Pufferfish extends Phaser.Physics.Arcade.Sprite {
 		this.isAlive = false;
 		this.setVelocity(0, -200);
 		this.flipY = true;
+		this.scene.sound.play("gurgle_01");
 	}
 }

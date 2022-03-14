@@ -9,7 +9,7 @@ export default class PlayerLivesDisplay extends Phaser.GameObjects.Rectangle {
 
 	constructor(scene: Phaser.Scene) {
 		let posX = gameSettings.width - 60;
-		let posY = gameSettings.height - 35;
+		let posY = 15;
 
 		super(scene, posX, posY, 70, 20, 0x000000, 0);
 

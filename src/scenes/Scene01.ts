@@ -55,12 +55,21 @@ export default class Scene01 extends Phaser.Scene {
 	public create() {
 		//
 		backgroundSetup(this);
+
+		this.createBackgroundSound();
 		this.createUI();
 		this.createPlayer();
 		this.createWhale();
 		this.createControls();
 		this.createEnemies();
 		this.createColliders();
+	}
+
+	createBackgroundSound() {
+		let ambientSound = this.sound.add("underwater", { volume: .5, loop: true });
+		ambientSound.play();
+
+
 	}
 
 	createUI() {
@@ -143,13 +152,13 @@ export default class Scene01 extends Phaser.Scene {
 			} else {
 				this.player.setVelocityX(0);
 			}
+		}
 
-			if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-				if (this.gameIsOver) {
-					this.handleRestartGame();
-				} else {
-					this.handlePlayerPuff();
-				}
+		if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+			if (this.gameIsOver) {
+				this.handleRestartGame();
+			} else if (this.player.isAlive) {
+				this.handlePlayerPuff();
 			}
 		}
 	}
@@ -161,15 +170,19 @@ export default class Scene01 extends Phaser.Scene {
 
 	// ********************* Handle Events ********************************* //
 	handlePlayerEnemyCollision(obj1, obj2) {
-		if (this.player.isAlive && obj2.isAlive) {
+		let baseEnemy = obj2 as Enemy;
+
+		if (this.player.isAlive && baseEnemy.isAlive) {
 			if (this.player.puffs > 0) {
-				let baseEnemy = obj2 as Enemy;
 				this.player.puffs--;
 				this.score = this.score + baseEnemy.pointValue;
 
 				baseEnemy.dieDramatically();
 			} else {
 				this.handlePlayerIsHurt();
+				baseEnemy.doPlayerHit();
+				baseEnemy.isAlive = false;
+				baseEnemy.prepareToRespawn();
 			}
 		}
 	}
@@ -177,6 +190,7 @@ export default class Scene01 extends Phaser.Scene {
 	handlePlayerPuff() {
 		if (this.player.puffs < this.playerMaxPuffs) {
 			this.player.puffs++;
+			this.sound.play("puff_up");
 		}
 	}
 
@@ -206,8 +220,9 @@ export default class Scene01 extends Phaser.Scene {
 	}
 
 	handleWhaleEnemyCollision(obj1, obj2) {
-		if (this.whale.isAlive && this.whale.canBeInjured) {
-			let enemy = obj2 as Enemy;
+		let enemy = obj2 as Enemy;
+
+		if (this.whale.isAlive && this.whale.canBeInjured && enemy.isAlive) {
 			enemy.isAlive = false;
 			this.whale.health = this.whale.health - enemy.damage;
 

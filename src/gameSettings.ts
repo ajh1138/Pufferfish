@@ -2,6 +2,7 @@ export const gameSettings = {
 	width: 1240,
 	height: 768,
 	mainFontName: "Fredoka One",
+	baseFontConfig: { fontFamily: `"Fredoka One"`, align: "center", color: "yellow", fontSize: "24px" },
 	playerLives: 3,
 	playerSpeed: 300,
 	playerStartX: 500,
