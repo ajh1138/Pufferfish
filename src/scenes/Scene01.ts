@@ -100,11 +100,11 @@ export default class Scene01 extends Phaser.Scene {
 
 	createColliders() {
 		this.physics.add.overlap(this.player, this.enemies, (obj1, obj2) => {
-			this.handlePlayerEnemyCollision(obj1, obj2);
+			//this.handlePlayerEnemyCollision(obj1, obj2);
 		});
 
 		this.physics.add.overlap(this.whale, this.enemies, (obj1, obj2) => {
-			//			this.handleWhaleEnemyCollision(obj1, obj2);
+			this.handleWhaleEnemyCollision(obj1, obj2);
 		});
 	}
 
@@ -117,7 +117,7 @@ export default class Scene01 extends Phaser.Scene {
 	}
 
 	checkKeyboardInput() {
-		if (this.player.isAlive) {
+		if (this.player.isAlive && !this.gameIsOver) {
 			let goUp = this.cursorKeys.up.isDown || this.input.keyboard.checkDown(this.wasd["up"]);
 			let goDown = this.cursorKeys.down.isDown || this.input.keyboard.checkDown(this.wasd["down"]);
 			let goLeft = this.cursorKeys.left.isDown || this.input.keyboard.checkDown(this.wasd["left"]);
@@ -206,7 +206,7 @@ export default class Scene01 extends Phaser.Scene {
 	}
 
 	handleWhaleEnemyCollision(obj1, obj2) {
-		if (this.whale.isAlive) {
+		if (this.whale.isAlive && this.whale.canBeInjured) {
 			let enemy = obj2 as Enemy;
 			enemy.isAlive = false;
 			this.whale.health = this.whale.health - enemy.damage;
@@ -215,6 +215,7 @@ export default class Scene01 extends Phaser.Scene {
 				this.handleWhaleDeath();
 			} else {
 				this.whale.reactToHit();
+				enemy.doPlayerHit();
 			}
 		}
 	}
@@ -229,9 +230,7 @@ export default class Scene01 extends Phaser.Scene {
 
 		this.enemies.children.each(element => {
 			let anEnemy = element as Enemy;
-			anEnemy.setVelocity(0, 0);
-			anEnemy.setAcceleration(0, 0);
-			anEnemy.isAlive = false;
+			anEnemy.stopEverything();
 		});
 
 		this.gameOverDisplay.show();

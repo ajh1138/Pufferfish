@@ -30,7 +30,7 @@ export default class Jellyfish extends Enemy {
 	}
 
 	public update = () => {
-		if (this.isAlive) {
+		if (this.isAlive && this.isMoving) {
 			if (this.x > gameSettings.width) {
 				//console.log("jellyfish x", this.x);
 				this.setVelocityX(this.speedX);
@@ -52,6 +52,10 @@ export default class Jellyfish extends Enemy {
 
 	public dieDramatically() {
 		this.isAlive = false;
+		this.scene.sound.play("pop_02");
+	}
+
+	public doPlayerHit() {
 
 	}
 }

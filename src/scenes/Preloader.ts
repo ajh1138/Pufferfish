@@ -25,9 +25,13 @@ export default class Preloader extends Phaser.Scene {
 
 	preloadSounds() {
 		// this.load.audio("mainMusic", ["assets/sound/NeonAction2.mp3"]);
-		// this.load.audio("playerLaser", ["assets/sound/laser1.mp3"]);
-		// this.load.audio("enemyExplode", ["assets/sound/retro_die_03.ogg"]);
-		// this.load.audio("playerExplode", ["assets/sound/boom8.mp3"]);
+		this.load.audio("bite", ["assets/sounds/bite.mp3"]);
+		this.load.audio("pop_01", ["assets/sounds/zapsplat_pop_01.mp3"]);
+		this.load.audio("pop_02", ["assets/sounds/zapsplat_pop_02.mp3"]);
+		this.load.audio("boing_01", ["assets/sounds/zapsplat_boing_01.mp3"]);
+		this.load.audio("whale_hurt", ["assets/sounds/whale_hurt.mp3"]);
+		this.load.audio("whale_die", ["assets/sounds/whale_die.mp3"]);
+		// this.load.audio("playerExplode", ["assets/sounds/boom8.mp3"]);
 	}
 
 	preloadSprites() {
@@ -38,6 +42,7 @@ export default class Preloader extends Phaser.Scene {
 		this.load.image("harpoon", "assets/sprites/harpoon_01.png");
 		this.load.image("shark", "assets/sprites/shark_01.png");
 		this.load.image("jellyfish", "assets/sprites/jellyfish_01.png");
+		this.load.image("injury", "assets/sprites/injury_01.png");
 		// this.load.image("stars02", "assets/stars02.png");
 		// this.load.spritesheet("enemy01", "assets/sprites/enemy-01.png", {
 		// 	frameWidth: 48,

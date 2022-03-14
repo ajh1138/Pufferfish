@@ -19,20 +19,21 @@ export default class Shark extends Enemy {
 	}
 
 	public update() {
-		if (this.x <= -100) {
-			this.isRespawning = true;
-			setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
-		}
+		if (this.isMoving) {
+			if (this.x <= -100) {
+				this.isRespawning = true;
+				setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
+			}
 
-		if (this.y <= gameSettings.enemyMinY - this.height) {
-			this.isRespawning = true;
-			setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
-		}
+			if (this.y <= gameSettings.enemyMinY - this.height) {
+				this.isRespawning = true;
+				setTimeout(() => { this.respawn() }, gameSettings.enemyRespawnMilliseconds);
+			}
 
-		if (this.x > gameSettings.width) {
-			this.setVelocityX(this.speedX);
+			if (this.x > gameSettings.width) {
+				this.setVelocityX(this.speedX);
+			}
 		}
-
 	};
 
 	public dieDramatically() {
@@ -40,5 +41,10 @@ export default class Shark extends Enemy {
 		this.flipY = true;
 		this.setVelocityX(0);
 		this.setVelocityY(this.deathVelocityY);
+		this.scene.sound.play("pop_02");
+	}
+
+	public doPlayerHit() {
+		this.scene.sound.play("bite");
 	}
 }

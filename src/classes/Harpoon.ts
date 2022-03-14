@@ -32,7 +32,7 @@ export default class Harpoon extends Enemy {
 
 	public update() {
 		//	console.log("harpoon position", this.x, this.y, this.isRespawning, this.isAlive, +gameSettings.width + 300);
-		if (!this.isRespawning) {
+		if (!this.isRespawning && this.isMoving) {
 			if (this.x <= -200 || this.x >= +gameSettings.width + 300) {
 				console.log("harpoon x is out of bounds", this.x, gameSettings.width);
 				this.prepareForRespawn();
@@ -54,5 +54,10 @@ export default class Harpoon extends Enemy {
 		this.isAlive = false;
 		this.setAngularVelocity(150);
 		this.setVelocity(200, -200);
+		this.scene.sound.play("boing_01");
+	}
+
+	public doPlayerHit() {
+
 	}
 }

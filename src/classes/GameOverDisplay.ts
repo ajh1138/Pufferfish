@@ -32,7 +32,7 @@ export default class GameOverDisplay extends Phaser.GameObjects.Text {
 	}
 
 	public show() {
-		this.instructionsText.setAlpha(0);
+		this.instructionsText.setAlpha(1);
 		this.setAlpha(1);
 	}
 

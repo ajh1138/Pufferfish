@@ -3,6 +3,7 @@ import { gameSettings } from "../gameSettings";
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 	public isAlive = true;
+	public isMoving = true;
 	public speedX: number;
 	public speedY: number;
 
@@ -58,5 +59,17 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 	public dieDramatically() {
 		console.log("base die");
+	}
+
+	public doPlayerHit() {
+
+	}
+
+	public stopEverything() {
+		this.isAlive = false;
+		this.isMoving = false;
+		this.setVelocity(0, 0);
+		this.setAngularVelocity(0);
+		this.setAngle(0);
 	}
 }
